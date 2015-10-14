@@ -1,12 +1,12 @@
 # SuperPaint
 A paint program in Java, using the Swing API.
 
-**Features:**
+##Features:
 - Use of Swing components, such as JFrame, JPanel, JInternalFrame, etc.
 - Non-API linked list data structure
 - Object Oriented Programming practices (use of inheritance, polymorphism, encapsulation)
 
-**Classes:**
+##Classes:
 
 MyShape
   - The base class, used to store values associated with the shapes
