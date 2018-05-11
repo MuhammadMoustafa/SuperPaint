@@ -3,6 +3,9 @@ package com.oop.shapes;
 import java.awt.Color;
 import java.awt.Graphics;
 
+import com.oop.shapes.drawapis.DefaultDrawApi;
+import com.oop.shapes.drawapis.DrawApi;
+
 /**
  * This is an abstract class with an abstract draw method. It inherits from MyShape
  * and contains methods needed for drawing ovals and rectangles. It also contains an instance variable called fill.

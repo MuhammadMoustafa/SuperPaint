@@ -7,6 +7,8 @@ import javax.swing.JPanel;
 
 import com.oop.shapes.ShapeEnum;
 import com.oop.shapes.ShapeFactory;
+import com.oop.shapes.drawapis.RedOvalShape;
+import com.oop.shapes.drawapis.RedRectangeShape;
 
 import javax.swing.JLabel;
 import java.awt.BorderLayout;
@@ -19,8 +21,6 @@ import java.util.Stack;
 import com.oop.shapes.MyBoundedShape;
 import com.oop.shapes.MyOval;
 import com.oop.shapes.MyShape;
-import com.oop.shapes.RedOvalShape;
-import com.oop.shapes.RedRectangeShape;
 
 /**
  * This class handles mouse events and uses them to draw shapes. It contains a
