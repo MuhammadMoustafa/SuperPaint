@@ -1,5 +1,10 @@
 package com.oop.save;
 
+import java.io.File;
+import java.io.OutputStreamWriter;
+
+import javax.swing.JFileChooser;
+
 public class FormatXML implements Strategy {
 
 	public FormatXML() {
@@ -8,8 +13,7 @@ public class FormatXML implements Strategy {
 
 	@Override
 	public void save() {
-		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override

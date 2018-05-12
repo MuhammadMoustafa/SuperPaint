@@ -7,8 +7,12 @@ import com.oop.shapes.ShapeEnum;
 import javax.swing.JLabel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
 import javax.swing.JCheckBox;
 import java.awt.event.ItemListener;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.OutputStreamWriter;
 import java.awt.event.ItemEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -16,6 +20,7 @@ import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.FlowLayout;
 import java.awt.Color;
+import java.awt.Desktop;
 
 /**
  * Provides the GUI and encapsulates the DrawPanel
@@ -167,7 +172,27 @@ public class DrawFrame extends JFrame
                 panel.clearDrawing();
             }
             else if (event.getActionCommand().equals("Save")){
-                
+            	// file save dialog
+        	    JFileChooser fileChooser = new JFileChooser();
+        	    int retval = fileChooser.showSaveDialog(panel);
+        	    if (retval == JFileChooser.APPROVE_OPTION) {
+        	      File file = fileChooser.getSelectedFile();
+        	      if (file == null) {
+        	    	  System.out.println("file equal null");
+        	        return;
+        	      }
+        	      if (!file.getName().toLowerCase().endsWith(".txt")) {
+        	    	  System.out.println(file.getName());
+        	    	  System.out.println(file.getPath());
+        	        file = new File(file.getParentFile(), file.getName() + ".txt");
+        	      }
+        	      try {
+        	        new OutputStreamWriter(new FileOutputStream(file), "utf-8");
+        	        Desktop.getDesktop().open(file);
+        	      } catch (Exception e) {
+        	        e.printStackTrace();
+        	      }
+        	    }
             	panel.saveFile();
                 panel.statusLabel.setText("Save");
             }

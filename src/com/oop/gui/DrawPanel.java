@@ -8,9 +8,12 @@ import javax.swing.JPanel;
 import com.oop.shapes.ShapeEnum;
 import com.oop.shapes.ShapeFactory;
 
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import java.awt.BorderLayout;
 import java.awt.event.MouseEvent;
+import java.io.File;
+import java.io.OutputStreamWriter;
 import java.awt.event.MouseAdapter;
 import java.util.ArrayList;
 import java.util.List;
@@ -50,7 +53,7 @@ public class DrawPanel extends JPanel {
 	private boolean currentShapeFilled; // determine whether shape is filled or
 										// not
 
-	private Context context;
+	private Context context = new Context(new FormatXML());
 	JLabel statusLabel; // status label for mouse coordinates
 
 	/**
@@ -258,6 +261,7 @@ public class DrawPanel extends JPanel {
 	}// end MouseHandler
 
 	public void saveFile() {
+		
 		context.executeSaveStrategy();
 	}
 
