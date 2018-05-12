@@ -8,26 +8,22 @@ import javax.swing.JPanel;
 import com.oop.shapes.ShapeEnum;
 import com.oop.shapes.ShapeFactory;
 
-import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import java.awt.BorderLayout;
 import java.awt.event.MouseEvent;
-import java.io.File;
-import java.io.OutputStreamWriter;
+
 import java.awt.event.MouseAdapter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Stack;
 
 import com.oop.save.Context;
 import com.oop.save.FormatJSON;
 import com.oop.save.FormatXML;
 import com.oop.save.Strategy;
 import com.oop.shapes.MyBoundedShape;
-import com.oop.shapes.MyOval;
 import com.oop.shapes.MyShape;
-import com.oop.shapes.drawapis.RedOvalShape;
-import com.oop.shapes.drawapis.RedRectangeShape;
+import com.oop.drawapis.RedOvalShape;
+import com.oop.drawapis.RedRectangeShape;
 
 /**
  * This class handles mouse events and uses them to draw shapes. It contains a
@@ -53,7 +49,10 @@ public class DrawPanel extends JPanel {
 	private boolean currentShapeFilled; // determine whether shape is filled or
 										// not
 
-	private Context context = new Context(new FormatXML());
+	private Strategy xml = new FormatXML();
+	private Strategy json = new FormatJSON();
+	private Context context = new Context(this.xml);
+	
 	JLabel statusLabel; // status label for mouse coordinates
 
 	/**
@@ -198,12 +197,14 @@ public class DrawPanel extends JPanel {
 
 				currentShapeObject = shapeFactory.getShape(ShapeEnum.RECTANGLE, event.getX(), event.getY(),
 						event.getX(), event.getY(), currentShapeColor, currentShapeFilled);
+				currentShapeObject.setColor(Color.RED);
 				((MyBoundedShape) currentShapeObject).setDrawApi(new RedRectangeShape());
 
 				break;
 			case 4:
 				currentShapeObject = shapeFactory.getShape(ShapeEnum.OVAL, event.getX(), event.getY(), event.getX(),
 						event.getY(), currentShapeColor, currentShapeFilled);
+				currentShapeObject.setColor(Color.RED);
 				((MyBoundedShape) currentShapeObject).setDrawApi(new RedOvalShape());
 				break;
 
@@ -260,23 +261,28 @@ public class DrawPanel extends JPanel {
 
 	}// end MouseHandler
 
-	public void saveFile() {
+	public void saveFile(String fileName) {
 		
-		context.executeSaveStrategy();
+		context.executeSaveStrategy(fileName, myShapes);
 	}
 
-	public void loadFile() {
-		context.executeLoadStrategy();
+	public void loadFile(String fileName) {
+		myShapes = context.executeLoadStrategy(fileName);
+		repaint();
 	}
 
 	// 0 For XML 1 For JSON
-	public void setCurrentFileStrategy(int selectedIndex) {
+	public void setCurrentContext(int selectedIndex) {
 		if (selectedIndex == 0) {
-			this.context.setStrategy(new FormatXML());
+			this.context.setStrategy(this.xml);
 		}
 		else if (selectedIndex == 1) {
-			this.context.setStrategy(new FormatJSON()); 
+			this.context.setStrategy(this.json); 
 		}
+	}
+
+	public Context getCurrentContext() {
+		return this.context;
 	}
 
 } // end class DrawPanel

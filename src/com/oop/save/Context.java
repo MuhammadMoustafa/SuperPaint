@@ -1,5 +1,12 @@
 package com.oop.save;
 
+import java.util.List;
+
+import javax.swing.JComponent;
+
+import com.oop.gui.DrawPanel;
+import com.oop.shapes.MyShape;
+
 public class Context {
 
 	private Strategy strategy;
@@ -7,16 +14,20 @@ public class Context {
 	public void setStrategy(Strategy strategy) {
 		this.strategy = strategy;
 	}
+	
+	public Strategy getStrategy() {
+		return this.strategy;
+	}
 
 	public Context(Strategy strategy) {
 		this.strategy = strategy;
 	}
 
-	public void executeSaveStrategy() {
-		strategy.save();
+	public void executeSaveStrategy(String fileName, List<MyShape> shapes) {
+		strategy.save(fileName, shapes);
 	}
 	
-	public void executeLoadStrategy() {
-		strategy.load();
+	public List<MyShape> executeLoadStrategy(String fileName) {
+		return strategy.load(fileName);
 	}
 }

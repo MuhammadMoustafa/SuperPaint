@@ -1,4 +1,4 @@
-package com.oop.shapes.drawapis;
+package com.oop.drawapis;
 
 import java.awt.Graphics;
 

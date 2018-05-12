@@ -2,6 +2,8 @@ package com.oop.gui;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import com.oop.save.FormatJSON;
+import com.oop.save.FormatXML;
 import com.oop.shapes.ShapeEnum;
 
 import javax.swing.JLabel;
@@ -159,7 +161,33 @@ public class DrawFrame extends JFrame
      */
     private class ButtonHandler implements ActionListener
     {
-        // handles button events
+        private String chooseFile() {
+        	JFileChooser fileChooser = new JFileChooser();
+    	    int retval = fileChooser.showSaveDialog(panel);
+    	    if (retval == JFileChooser.APPROVE_OPTION) {
+    	      File file = fileChooser.getSelectedFile();
+    	      if (file == null) {
+    	    	  panel.statusLabel.setText("file equal null");
+    	        return "0";
+    	      }
+    	      if(panel.getCurrentContext().getStrategy() instanceof FormatXML) {
+        	      if (file.getName().toLowerCase().endsWith(".xml")) {
+        	    	  System.out.println(file.getAbsolutePath());
+        	    	  String filePath = file.getAbsolutePath();
+        	    	  return filePath.substring(0, filePath.lastIndexOf('.'));
+        	      }
+    	      }
+    	      else if (panel.getCurrentContext().getStrategy() instanceof FormatJSON) {
+	    	      if (file.getName().toLowerCase().endsWith(".json")) {
+        	    	  System.out.println(file.getAbsolutePath());
+	    	    	  String filePath = file.getAbsolutePath();
+        	    	  return filePath.substring(0, filePath.lastIndexOf('.'));
+	    	      }
+    	      }
+    	    }
+    	    return "0";
+        }
+    	// handles button events
         public void actionPerformed( ActionEvent event )
         {
             if (event.getActionCommand().equals("Undo")){
@@ -172,34 +200,24 @@ public class DrawFrame extends JFrame
                 panel.clearDrawing();
             }
             else if (event.getActionCommand().equals("Save")){
-            	// file save dialog
-        	    JFileChooser fileChooser = new JFileChooser();
-        	    int retval = fileChooser.showSaveDialog(panel);
-        	    if (retval == JFileChooser.APPROVE_OPTION) {
-        	      File file = fileChooser.getSelectedFile();
-        	      if (file == null) {
-        	    	  System.out.println("file equal null");
-        	        return;
-        	      }
-        	      if (!file.getName().toLowerCase().endsWith(".txt")) {
-        	    	  System.out.println(file.getName());
-        	    	  System.out.println(file.getPath());
-        	        file = new File(file.getParentFile(), file.getName() + ".txt");
-        	      }
-        	      try {
-        	        new OutputStreamWriter(new FileOutputStream(file), "utf-8");
-        	        Desktop.getDesktop().open(file);
-        	      } catch (Exception e) {
-        	        e.printStackTrace();
-        	      }
-        	    }
-            	panel.saveFile();
-                panel.statusLabel.setText("Save");
+            	String s = chooseFile();
+            	if (s.equals("0")) {
+            		panel.statusLabel.setText("Not a File");
+            	}
+            	else {
+            		panel.saveFile(s);
+            	}
+            			
+                //panel.statusLabel.setText("Save");
             }
             else if (event.getActionCommand().equals("Load")){
-                panel.loadFile();
-                panel.statusLabel.setText("Load");
-
+            	String s = chooseFile();
+            	if (s.equals("0")) {
+            		panel.statusLabel.setText("Not a File");
+            	}
+            	else {
+            		panel.loadFile(s);
+            	}
             }
             
              
@@ -238,7 +256,7 @@ public class DrawFrame extends JFrame
                 
                 else if ( event.getSource() == formats)
                 {
-                    panel.setCurrentFileStrategy(formats.getSelectedIndex());
+                    panel.setCurrentContext(formats.getSelectedIndex());
                     
                     if (formats.getSelectedIndex() == 0) {
                     	panel.statusLabel.setText("XML");
