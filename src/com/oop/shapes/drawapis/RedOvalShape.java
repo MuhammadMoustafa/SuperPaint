@@ -1,7 +1,9 @@
-package com.oop.shapes;
+package com.oop.shapes.drawapis;
 
 import java.awt.Color;
 import java.awt.Graphics;
+
+import com.oop.shapes.MyBoundedShape;
 
 public class RedOvalShape implements DrawApi{
 
