@@ -35,8 +35,11 @@ public class DrawFrame extends JFrame
     private JButton undo; // button to undo last drawn shape
     private JButton redo; // button to redo an undo
     private JButton clear; // button to clear panel
+    private JButton save;
+    private JButton load;
     
     private JComboBox colors; //combobox with color options
+    private JComboBox formats;
     
     //array of strings containing color options for JComboBox colors
     private String colorOptions[]=
@@ -53,6 +56,7 @@ public class DrawFrame extends JFrame
     
     //array of strings containing shape options for JComboBox shapes
     private String shapeOptions[]= {"Line","Rectangle","Oval", "Red Rectangle", "Red Oval"};
+    private String formatOptions[] = {"XML", "JSON"};
     private JCheckBox filled; //checkbox to select whether shape is filled or not
         
     private JPanel widgetJPanel; //holds the widgets: buttons, comboboxes and checkbox
@@ -77,10 +81,13 @@ public class DrawFrame extends JFrame
         undo = new JButton( "Undo" );
         redo = new JButton( "Redo" );
         clear = new JButton( "Clear" );
+        save = new JButton("Save");
+        load = new JButton("Load");
         
         //create comboboxes
         colors = new JComboBox( colorOptions );
         shapes = new JComboBox( shapeOptions );
+        formats = new JComboBox(formatOptions);
         
         //create checkbox
         filled = new JCheckBox( "Filled" );
@@ -100,6 +107,11 @@ public class DrawFrame extends JFrame
         widgetJPanel.add( colors );
         widgetJPanel.add( shapes );                 
         widgetJPanel.add( filled );
+        
+        widgetJPanel.add(save);
+        widgetJPanel.add(load);
+        widgetJPanel.add(formats);
+        
         // add widgetJPanel to widgetPadder
         widgetPadder.add( widgetJPanel );
         
@@ -112,12 +124,15 @@ public class DrawFrame extends JFrame
         undo.addActionListener( buttonHandler );
         redo.addActionListener( buttonHandler );
         clear.addActionListener( buttonHandler );
+        save.addActionListener( buttonHandler );
+        load.addActionListener( buttonHandler );
         
         //create handlers for combobox and checkbox
         ItemListenerHandler handler = new ItemListenerHandler();
         colors.addItemListener( handler );
         shapes.addItemListener( handler );
         filled.addItemListener( handler );
+        formats.addItemListener( handler );
         
         setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
         setSize( 500, 500 );
@@ -151,6 +166,16 @@ public class DrawFrame extends JFrame
             else if (event.getActionCommand().equals("Clear")){
                 panel.clearDrawing();
             }
+            else if (event.getActionCommand().equals("Save")){
+                panel.saveFile();
+                panel.statusLabel.setText("Save");
+            }
+            else if (event.getActionCommand().equals("Load")){
+                panel.loadFile();
+                panel.statusLabel.setText("Load");
+
+            }
+            
              
         } // end method actionPerformed
     } // end private inner class ButtonHandler
@@ -183,6 +208,19 @@ public class DrawFrame extends JFrame
                 else if ( event.getSource() == shapes)
                 {
                     panel.setCurrentShapeType(shapes.getSelectedIndex());
+                }
+                
+                else if ( event.getSource() == formats)
+                {
+                    panel.setCurrentFileStrategy(formats.getSelectedIndex());
+                    
+                    if (formats.getSelectedIndex() == 0) {
+                    	panel.statusLabel.setText("XML");
+                    }
+                    else if (formats.getSelectedIndex() == 1) {
+                    	panel.statusLabel.setText("JSON");
+                    }
+                    
                 }
             }
             

@@ -16,6 +16,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
+import com.oop.save.Context;
+import com.oop.save.FormatJSON;
+import com.oop.save.FormatXML;
+import com.oop.save.Strategy;
 import com.oop.shapes.MyBoundedShape;
 import com.oop.shapes.MyOval;
 import com.oop.shapes.MyShape;
@@ -46,6 +50,7 @@ public class DrawPanel extends JPanel {
 	private boolean currentShapeFilled; // determine whether shape is filled or
 										// not
 
+	private Context context;
 	JLabel statusLabel; // status label for mouse coordinates
 
 	/**
@@ -251,5 +256,23 @@ public class DrawPanel extends JPanel {
 		} // end method mouseDragged
 
 	}// end MouseHandler
+
+	public void saveFile() {
+		context.executeSaveStrategy();
+	}
+
+	public void loadFile() {
+		context.executeLoadStrategy();
+	}
+
+	// 0 For XML 1 For JSON
+	public void setCurrentFileStrategy(int selectedIndex) {
+		if (selectedIndex == 0) {
+			this.context = new Context(new FormatXML());
+		}
+		else if (selectedIndex == 1) {
+			this.context = new Context(new FormatJSON());
+		}
+	}
 
 } // end class DrawPanel
