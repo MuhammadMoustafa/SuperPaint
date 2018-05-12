@@ -17,6 +17,10 @@ import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JSpinner;
+import javax.swing.SpinnerNumberModel;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import com.oop.save.FormatJSON;
@@ -40,6 +44,7 @@ public class DrawFrame extends JFrame {
 	private JButton save;
 	private JButton load;
 	private JButton sort;
+	private JSpinner spinner;
 
 	private JComboBox colors; // combobox with color options
 	private JComboBox formats;
@@ -87,7 +92,13 @@ public class DrawFrame extends JFrame {
 		save = new JButton("Save");
 		load = new JButton("Load");
 		sort = new JButton("sort");
+		
 
+
+		// from 1 to 10, in 1 steps start value 5  
+		SpinnerNumberModel model1 = new SpinnerNumberModel(5, 1, 10, 1);  
+		spinner = new JSpinner(model1);
+		
 		// create comboboxes
 		colors = new JComboBox(colorOptions);
 		shapes = new JComboBox(shapeOptions);
@@ -122,6 +133,7 @@ public class DrawFrame extends JFrame {
 		widgetJPanel.add(save);
 		widgetJPanel.add(load);
 		widgetJPanel.add(formats);
+		widgetJPanel.add(spinner);
 
 		// add widgetJPanel to widgetPadder
 		widgetPadder.add(widgetJPanel);
@@ -146,6 +158,15 @@ public class DrawFrame extends JFrame {
 		filled.addItemListener(handler);
 		formats.addItemListener(handler);
 
+	    spinner.addChangeListener(new ChangeListener() {
+
+			@Override
+			public void stateChanged(ChangeEvent e) {
+				panel.spinnerChanged((int)spinner.getValue());
+				
+			}
+	    });
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(500, 500);
 		setVisible(true);

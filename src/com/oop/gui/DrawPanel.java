@@ -309,4 +309,8 @@ public class DrawPanel extends JPanel {
 		this.repaint();
 	}
 
+	public void spinnerChanged(int value) {
+		System.out.println(value);
+	}
+
 } // end class DrawPanel
