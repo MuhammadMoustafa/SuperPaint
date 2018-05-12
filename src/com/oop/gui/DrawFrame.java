@@ -1,28 +1,25 @@
 package com.oop.gui;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.FlowLayout;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.io.File;
+
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import com.oop.save.FormatJSON;
 import com.oop.save.FormatXML;
-import com.oop.shapes.ShapeEnum;
-
-import javax.swing.JLabel;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JFileChooser;
-import javax.swing.JCheckBox;
-import java.awt.event.ItemListener;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.OutputStreamWriter;
-import java.awt.event.ItemEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.awt.BorderLayout;
-import java.awt.GridLayout;
-import java.awt.FlowLayout;
-import java.awt.Color;
-import java.awt.Desktop;
 
 /**
  * Provides the GUI and encapsulates the DrawPanel
@@ -163,11 +160,14 @@ public class DrawFrame extends JFrame
     {
         private String chooseFile() {
         	JFileChooser fileChooser = new JFileChooser();
+        	
     	    int retval = fileChooser.showSaveDialog(panel);
+    	    System.out.println(retval);
     	    if (retval == JFileChooser.APPROVE_OPTION) {
     	      File file = fileChooser.getSelectedFile();
     	      if (file == null) {
     	    	  panel.statusLabel.setText("file equal null");
+    	    	  System.out.println("you are stuck here");
     	        return "0";
     	      }
     	      if(panel.getCurrentContext().getStrategy() instanceof FormatXML) {

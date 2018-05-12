@@ -3,13 +3,14 @@ package com.oop.save;
 import java.io.File;
 import java.io.OutputStreamWriter;
 import java.util.List;
+import java.util.Observable;
 
 import javax.swing.JComponent;
 import javax.swing.JFileChooser;
 
 import com.oop.shapes.MyShape;
 
-public class FormatXML implements Strategy {
+public class FormatXML extends Observable implements Strategy {
 
 	public FormatXML() {
 		// TODO Auto-generated constructor stub

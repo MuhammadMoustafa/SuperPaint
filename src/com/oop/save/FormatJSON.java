@@ -5,13 +5,13 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Observable;
 import java.util.stream.Collectors;
 
 import javax.swing.JComponent;
 
 import com.oop.shapes.MyBoundedShape;
 import com.oop.shapes.MyShape;
-import com.sun.javafx.scene.paint.GradientUtils.Parser;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -23,7 +23,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 
 
-public class FormatJSON implements Strategy {
+public class FormatJSON extends Observable implements Strategy {
 
 	public FormatJSON() {
 		// TODO Auto-generated constructor stub
@@ -115,6 +115,9 @@ public class FormatJSON implements Strategy {
         catch (Exception e) {
             e.printStackTrace();
         }
+        
+        this.setChanged();
+        this.notifyObservers(shapes);
 		return shapes;
 
     }		

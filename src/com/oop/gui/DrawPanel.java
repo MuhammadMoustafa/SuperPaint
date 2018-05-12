@@ -7,6 +7,7 @@ import javax.swing.JPanel;
 
 import com.oop.shapes.ShapeEnum;
 import com.oop.shapes.ShapeFactory;
+import com.oop.shapes.ShapeListDecorator;
 
 import javax.swing.JLabel;
 import java.awt.BorderLayout;
@@ -38,7 +39,7 @@ import com.oop.drawapis.RedRectangeShape;
  */
 
 public class DrawPanel extends JPanel {
-	private List<MyShape> myShapes; // dynamic stack of shapes
+	private ShapeListDecorator myShapes; // dynamic stack of shapes
 	private List<MyShape> clearedShapes; // dynamic stack of cleared shapes from
 											// undo
 
@@ -49,10 +50,10 @@ public class DrawPanel extends JPanel {
 	private boolean currentShapeFilled; // determine whether shape is filled or
 										// not
 
-	private Strategy xml = new FormatXML();
-	private Strategy json = new FormatJSON();
-	private Context context = new Context(this.xml);
-	
+	private FormatXML xmlStrategy;
+	private FormatJSON jsonStreategy;
+	private Context context;
+
 	JLabel statusLabel; // status label for mouse coordinates
 
 	/**
@@ -63,7 +64,7 @@ public class DrawPanel extends JPanel {
 	 */
 	public DrawPanel(JLabel statusLabel) {
 
-		myShapes = new ArrayList<MyShape>(); // initialize myShapes dynamic
+		myShapes = new ShapeListDecorator(); // initialize myShapes dynamic
 												// stack
 		clearedShapes = new ArrayList<MyShape>(); // initialize clearedShapes
 													// dynamic stack
@@ -82,6 +83,15 @@ public class DrawPanel extends JPanel {
 		add(statusLabel, BorderLayout.SOUTH); // adds a statuslabel to the south
 												// border
 
+		xmlStrategy = new FormatXML();
+		jsonStreategy=new FormatJSON();
+		context = new Context(xmlStrategy);
+		xmlStrategy = new FormatXML();		
+		xmlStrategy.addObserver(myShapes);
+		jsonStreategy.addObserver(myShapes);
+		context = new Context(this.xmlStrategy);
+
+
 		// event handling for mouse and mouse motion events
 		MouseHandler handler = new MouseHandler();
 		addMouseListener(handler);
@@ -95,7 +105,7 @@ public class DrawPanel extends JPanel {
 		super.paintComponent(g);
 
 		// draw the shapes
-		List<MyShape> shapeArray = myShapes;
+		List<MyShape> shapeArray = myShapes.myShapes;
 		for (int counter = 0; counter < shapeArray.size(); counter++)
 			shapeArray.get(counter).draw(g);
 
@@ -137,10 +147,10 @@ public class DrawPanel extends JPanel {
 	 * clearedShapes is not empty
 	 */
 	public void clearLastShape() {
-		if (!myShapes.isEmpty()) {
-			if (myShapes.size() != 0) {
+		if (!myShapes.myShapes.isEmpty()) {
+			if (myShapes.myShapes.size() != 0) {
 			}
-			clearedShapes.add(myShapes.remove(myShapes.size() - 1));
+			clearedShapes.add(myShapes.myShapes.remove(myShapes.myShapes.size() - 1));
 			repaint();
 		}
 	}
@@ -151,7 +161,7 @@ public class DrawPanel extends JPanel {
 	 */
 	public void redoLastShape() {
 		if (!clearedShapes.isEmpty()) {
-			myShapes.add(clearedShapes.remove(clearedShapes.size() - 1));
+			myShapes.myShapes.add(clearedShapes.remove(clearedShapes.size() - 1));
 			repaint();
 		}
 	}
@@ -162,7 +172,7 @@ public class DrawPanel extends JPanel {
 	 * panel.
 	 */
 	public void clearDrawing() {
-		myShapes.clear();
+		myShapes.myShapes.clear();
 		clearedShapes.clear();
 		repaint();
 	}
@@ -224,8 +234,9 @@ public class DrawPanel extends JPanel {
 			currentShapeObject.setX2(event.getX());
 			currentShapeObject.setY2(event.getY());
 
-			myShapes.add(currentShapeObject); // addFront currentShapeObject
-												// onto myShapes
+			myShapes.myShapes.add(currentShapeObject); // addFront
+														// currentShapeObject
+			// onto myShapes
 
 			currentShapeObject = null; // sets currentShapeObject to null
 			clearedShapes.clear(); // clears clearedShapes
@@ -262,22 +273,21 @@ public class DrawPanel extends JPanel {
 	}// end MouseHandler
 
 	public void saveFile(String fileName) {
-		
-		context.executeSaveStrategy(fileName, myShapes);
+
+		context.executeSaveStrategy(fileName, myShapes.myShapes);
 	}
 
 	public void loadFile(String fileName) {
-		myShapes = context.executeLoadStrategy(fileName);
+		context.executeLoadStrategy(fileName);
 		repaint();
 	}
 
 	// 0 For XML 1 For JSON
 	public void setCurrentContext(int selectedIndex) {
 		if (selectedIndex == 0) {
-			this.context.setStrategy(this.xml);
-		}
-		else if (selectedIndex == 1) {
-			this.context.setStrategy(this.json); 
+			this.context.setStrategy(this.xmlStrategy);
+		} else if (selectedIndex == 1) {
+			this.context.setStrategy(this.jsonStreategy);
 		}
 	}
 
