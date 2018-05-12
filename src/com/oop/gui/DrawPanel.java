@@ -15,6 +15,8 @@ import java.awt.event.MouseEvent;
 
 import java.awt.event.MouseAdapter;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import com.oop.save.Context;
@@ -299,6 +301,12 @@ public class DrawPanel extends JPanel {
 
 	public Context getCurrentContext() {
 		return this.context;
+	}
+	
+	public void sortShapes(){
+		Collections.sort(myShapes.myShapes);
+		Collections.reverse(myShapes.myShapes);
+		this.repaint();
 	}
 
 } // end class DrawPanel
