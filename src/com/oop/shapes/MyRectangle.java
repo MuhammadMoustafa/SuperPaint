@@ -35,4 +35,10 @@ public class MyRectangle extends MyBoundedShape {
 
 	}
 
+	@Override
+	public double calcArea() {
+		
+		return this.getHeight()*this.getWidth();
+	}
+
 }

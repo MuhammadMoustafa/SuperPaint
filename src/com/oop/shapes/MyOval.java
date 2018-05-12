@@ -38,6 +38,11 @@ public class MyOval extends MyBoundedShape
         
     }
 
+	@Override
+	public double calcArea() {
+		return this.getHeight()*this.getWidth()*Math.PI;
+	}
+
 	
 
 } // end class MyOval

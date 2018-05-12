@@ -103,5 +103,5 @@ abstract public class MyBoundedShape extends MyShape
      * Abstract method for drawing the shape that must be overriden
      */
     abstract public void draw( Graphics g );
-
+    abstract public double calcArea();
 } // end class MyBoundedShape
