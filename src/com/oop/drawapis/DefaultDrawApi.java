@@ -13,12 +13,14 @@ public class DefaultDrawApi implements DrawApi {
 
 	@Override
 	public void draw(Graphics g, MyShape shape) {
+		MyShape newShape=shape;
 		for(int i=0;i<shape.getFont();i++){
-			drawWithFont(g, shape);
-			shape.setX1(shape.getX1()+1);
-			shape.setY1(shape.getY1()+1);
-			shape.setX2(shape.getX2()+1);
-			shape.setY2(shape.getY2()+1);
+			newShape.setX1(shape.getX1()+i);
+			newShape.setY1(shape.getY1()+i);
+			newShape.setX2(shape.getX2()+i);
+			newShape.setY2(shape.getY2()+i);
+			drawWithFont(g, newShape);
+		
 
 		}
 	}
