@@ -41,4 +41,5 @@ public class MyRectangle extends MyBoundedShape {
 		return this.getHeight()*this.getWidth();
 	}
 
+	
 }

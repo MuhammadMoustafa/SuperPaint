@@ -7,7 +7,7 @@ import java.awt.Graphics;
  * This class contains int coordinates and a Color color. It has accessor and
  * mutator methods for them.
  */
-abstract public class MyShape {
+abstract public class MyShape implements Comparable<MyShape> {
 	private int x1, y1, x2, y2; // coordinates of shape
 	private Color color; // color of shape
 
@@ -108,6 +108,15 @@ abstract public class MyShape {
 	public Color getColor() {
 		return color;
 	}
+	
+	
+	
+	@Override
+	public int compareTo(MyShape o) {
+		// TODO Auto-generated method stub
+		return  (int) (this.calcArea()-o.calcArea());
+	}
+
 
 	/**
 	 * Abstract method for drawing the shape that must be overriden
