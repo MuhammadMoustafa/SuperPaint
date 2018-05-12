@@ -28,7 +28,7 @@ abstract public class MyShape implements Comparable<MyShape> {
 		x2 = 0;
 		y2 = 0;
 		color = Color.BLACK;
-		font=1;
+		font=30;
 		drawApi= new DefaultDrawApi();
 	}
 
@@ -41,6 +41,7 @@ abstract public class MyShape implements Comparable<MyShape> {
 		this.y1 = y1;
 		this.x2 = x2;
 		this.y2 = y2;
+		font=30;
 		this.color = color;
 		drawApi= new DefaultDrawApi();
 
@@ -131,7 +132,17 @@ abstract public class MyShape implements Comparable<MyShape> {
 		// TODO Auto-generated method stub
 		return  (int) (this.calcArea()-o.calcArea());
 	}
+	
+	
 
+
+	public int getFont() {
+		return font;
+	}
+
+	public void setFont(int font) {
+		this.font = font;
+	}
 
 	/**
 	 * Abstract method for drawing the shape that must be overriden
