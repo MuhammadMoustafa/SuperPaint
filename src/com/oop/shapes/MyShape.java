@@ -28,7 +28,7 @@ abstract public class MyShape implements Comparable<MyShape> {
 		x2 = 0;
 		y2 = 0;
 		color = Color.BLACK;
-		font=30;
+		font=1;
 		drawApi= new DefaultDrawApi();
 	}
 
@@ -41,7 +41,7 @@ abstract public class MyShape implements Comparable<MyShape> {
 		this.y1 = y1;
 		this.x2 = x2;
 		this.y2 = y2;
-		font=30;
+		font=1;
 		this.color = color;
 		drawApi= new DefaultDrawApi();
 

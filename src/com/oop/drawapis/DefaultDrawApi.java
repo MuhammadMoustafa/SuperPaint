@@ -13,20 +13,6 @@ public class DefaultDrawApi implements DrawApi {
 
 	@Override
 	public void draw(Graphics g, MyShape shape) {
-		MyShape newShape=shape;
-		for(int i=0;i<shape.getFont();i++){
-			newShape.setX1(shape.getX1()+i);
-			newShape.setY1(shape.getY1()+i);
-			newShape.setX2(shape.getX2()+i);
-			newShape.setY2(shape.getY2()+i);
-			drawWithFont(g, newShape);
-		
-
-		}
-	}
-	
-	private void drawWithFont(Graphics g, MyShape shape){
-		
 		if (shape instanceof MyOval) {
 			g.setColor(shape.getColor()); // sets the color
 			if (((MyOval) shape).getFill()) // determines whether fill is true
