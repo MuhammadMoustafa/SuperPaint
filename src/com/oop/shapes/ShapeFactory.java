@@ -2,7 +2,7 @@ package com.oop.shapes;
 
 import java.awt.Color;
 
-public class ShapeFactory {
+public class ShapeFactory extends AbstractFactory {
 	// use getShape method to get object of type shape
 	public MyShape getShape(String shapeType) {
 		if (shapeType == null) {

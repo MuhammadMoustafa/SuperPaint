@@ -113,5 +113,6 @@ abstract public class MyShape {
 	 * Abstract method for drawing the shape that must be overriden
 	 */
 	abstract public void draw(Graphics g);
+	abstract public double calcArea();
 
 }

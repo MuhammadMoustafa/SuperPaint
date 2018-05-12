@@ -34,5 +34,10 @@ public class MyLine extends MyShape
     {
         g.setColor( getColor() ); //sets the color
         g.drawLine( getX1(), getY1(), getX2(), getY2() ); //draws the line
-    } 
+    }
+
+	@Override
+	public double calcArea() {
+		return 0;
+	} 
 } // end class MyLine

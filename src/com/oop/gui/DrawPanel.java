@@ -21,6 +21,9 @@ import com.oop.save.Context;
 import com.oop.save.FormatJSON;
 import com.oop.save.FormatXML;
 import com.oop.save.Strategy;
+import com.oop.shapes.AbstractFactory;
+import com.oop.shapes.FactoryEnum;
+import com.oop.shapes.FactoryProducer;
 import com.oop.shapes.MyBoundedShape;
 import com.oop.shapes.MyShape;
 import com.oop.drawapis.RedOvalShape;
@@ -188,7 +191,10 @@ public class DrawPanel extends JPanel {
 		 * the same X & Y mouse position.
 		 */
 		public void mousePressed(MouseEvent event) {
-			ShapeFactory shapeFactory = new ShapeFactory();
+			
+			FactoryProducer factory = new FactoryProducer();
+			AbstractFactory shapeFactory = factory.getFactory(FactoryEnum.SHAPE);
+			
 			switch (currentShapeType) {
 			case 0:
 
