@@ -26,8 +26,8 @@ import com.oop.save.Strategy;
 import com.oop.shapes.MyBoundedShape;
 import com.oop.shapes.MyOval;
 import com.oop.shapes.MyShape;
-import com.oop.shapes.RedOvalShape;
-import com.oop.shapes.RedRectangeShape;
+import com.oop.shapes.drawapis.RedOvalShape;
+import com.oop.shapes.drawapis.RedRectangeShape;
 
 /**
  * This class handles mouse events and uses them to draw shapes. It contains a
