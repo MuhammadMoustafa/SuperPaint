@@ -2,6 +2,7 @@ package com.oop.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -94,7 +95,7 @@ public class DrawFrame extends JFrame {
 		sort = new JButton("sort");
 		
 
-
+		
 		// from 1 to 10, in 1 steps start value 5  
 		SpinnerNumberModel model1 = new SpinnerNumberModel(5, 1, 10, 1);  
 		spinner = new JSpinner(model1);
@@ -135,9 +136,10 @@ public class DrawFrame extends JFrame {
 		widgetJPanel.add(formats);
 		widgetJPanel.add(spinner);
 
+		widgetJPanel.setPreferredSize(new Dimension(1100, 30));
 		// add widgetJPanel to widgetPadder
 		widgetPadder.add(widgetJPanel);
-
+		
 		// add widgetPadder and panel to JFrame
 		add(widgetPadder, BorderLayout.NORTH);
 		add(panel, BorderLayout.CENTER);
@@ -168,8 +170,10 @@ public class DrawFrame extends JFrame {
 	    });
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setSize(500, 500);
+		setExtendedState(JFrame.MAXIMIZED_BOTH);
+		setSize(1200, 900);
 		setVisible(true);
+		//setResizable(true);
 
 	} // end DrawFrame constructor
 
