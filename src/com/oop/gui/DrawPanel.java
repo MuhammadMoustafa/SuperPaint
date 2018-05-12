@@ -7,8 +7,6 @@ import javax.swing.JPanel;
 
 import com.oop.shapes.ShapeEnum;
 import com.oop.shapes.ShapeFactory;
-import com.oop.shapes.drawapis.RedOvalShape;
-import com.oop.shapes.drawapis.RedRectangeShape;
 
 import javax.swing.JLabel;
 import java.awt.BorderLayout;
@@ -25,6 +23,8 @@ import com.oop.save.Strategy;
 import com.oop.shapes.MyBoundedShape;
 import com.oop.shapes.MyOval;
 import com.oop.shapes.MyShape;
+import com.oop.shapes.RedOvalShape;
+import com.oop.shapes.RedRectangeShape;
 
 /**
  * This class handles mouse events and uses them to draw shapes. It contains a
@@ -268,10 +268,10 @@ public class DrawPanel extends JPanel {
 	// 0 For XML 1 For JSON
 	public void setCurrentFileStrategy(int selectedIndex) {
 		if (selectedIndex == 0) {
-			this.context = new Context(new FormatXML());
+			this.context.setStrategy(new FormatXML());
 		}
 		else if (selectedIndex == 1) {
-			this.context = new Context(new FormatJSON());
+			this.context.setStrategy(new FormatJSON()); 
 		}
 	}
 

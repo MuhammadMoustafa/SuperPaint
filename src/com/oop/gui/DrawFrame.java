@@ -167,7 +167,8 @@ public class DrawFrame extends JFrame
                 panel.clearDrawing();
             }
             else if (event.getActionCommand().equals("Save")){
-                panel.saveFile();
+                
+            	panel.saveFile();
                 panel.statusLabel.setText("Save");
             }
             else if (event.getActionCommand().equals("Load")){
