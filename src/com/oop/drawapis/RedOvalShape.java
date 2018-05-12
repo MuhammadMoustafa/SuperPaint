@@ -3,18 +3,22 @@ package com.oop.drawapis;
 import java.awt.Color;
 import java.awt.Graphics;
 
-import com.oop.shapes.MyBoundedShape;
+import com.oop.shapes.MyOval;
+import com.oop.shapes.MyShape;
+
 
 public class RedOvalShape implements DrawApi{
 
 	@Override
-	public void draw(Graphics g, MyBoundedShape shape) {
+	public void draw(Graphics g, MyShape shape) {
+		
+		MyOval myShape = (MyOval) shape;
 
         g.setColor( Color.RED ); //sets the color
-        if (shape.getFill()) //determines whether fill is true or false
-            g.fillOval( shape.getUpperLeftX(), shape.getUpperLeftY(), shape.getWidth(), shape.getHeight() ); //draws a filled oval
+        if (myShape.getFill()) //determines whether fill is true or false
+            g.fillOval( myShape.getUpperLeftX(), myShape.getUpperLeftY(), myShape.getWidth(), myShape.getHeight() ); //draws a filled oval
         else
-            g.drawOval( shape.getUpperLeftX(), shape.getUpperLeftY(), shape.getWidth(), shape.getHeight() ); //draws a regular oval
+            g.drawOval( myShape.getUpperLeftX(), myShape.getUpperLeftY(), myShape.getWidth(), myShape.getHeight() ); //draws a regular oval
 	
 	}
 

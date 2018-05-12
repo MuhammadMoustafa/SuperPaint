@@ -15,7 +15,7 @@ import com.oop.drawapis.DefaultDrawApi;
 abstract public class MyBoundedShape extends MyShape
 {
 	
-	protected DrawApi drawApi;
+	
     private boolean fill; //boolean variable that determines whether the shape is filled or not
     
     /**
@@ -95,9 +95,7 @@ abstract public class MyBoundedShape extends MyShape
         return fill;
     }
     
-    public void setDrawApi(DrawApi drawApi){
-    	this.drawApi=drawApi;
-    }
+    
     
     /**
      * Abstract method for drawing the shape that must be overriden

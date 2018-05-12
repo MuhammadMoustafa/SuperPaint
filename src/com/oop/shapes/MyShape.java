@@ -3,6 +3,9 @@ package com.oop.shapes;
 import java.awt.Color;
 import java.awt.Graphics;
 
+import com.oop.drawapis.DefaultDrawApi;
+import com.oop.drawapis.DrawApi;
+
 /**
  * This class contains int coordinates and a Color color. It has accessor and
  * mutator methods for them.
@@ -10,17 +13,23 @@ import java.awt.Graphics;
 abstract public class MyShape implements Comparable<MyShape> {
 	private int x1, y1, x2, y2; // coordinates of shape
 	private Color color; // color of shape
+	private int font;
+	protected DrawApi drawApi;
 
 	/**
 	 * public constructor which takes no variables and sets coordinates to zero
 	 * and color to black
 	 */
+	
+	
 	public MyShape() {
 		x1 = 0;
 		y1 = 0;
 		x2 = 0;
 		y2 = 0;
 		color = Color.BLACK;
+		font=1;
+		drawApi= new DefaultDrawApi();
 	}
 
 	/**
@@ -33,6 +42,8 @@ abstract public class MyShape implements Comparable<MyShape> {
 		this.x2 = x2;
 		this.y2 = y2;
 		this.color = color;
+		drawApi= new DefaultDrawApi();
+
 	}
 
 	// Mutator methods
@@ -108,6 +119,10 @@ abstract public class MyShape implements Comparable<MyShape> {
 	public Color getColor() {
 		return color;
 	}
+	
+	public void setDrawApi(DrawApi drawApi){
+    	this.drawApi=drawApi;
+    }
 	
 	
 	

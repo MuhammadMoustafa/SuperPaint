@@ -32,8 +32,7 @@ public class MyLine extends MyShape
     @Override
     public void draw( Graphics g )
     {
-        g.setColor( getColor() ); //sets the color
-        g.drawLine( getX1(), getY1(), getX2(), getY2() ); //draws the line
+       this.drawApi.draw(g, this);
     }
 
 	@Override
